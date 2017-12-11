@@ -1,0 +1,15 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.color.title"></h1>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.color.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.color.user" ng-bind="vm.color.user.displayName"></span>
+      <span ng-if="!vm.color.user">Deleted Color</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.color.content"></p>
+</section>

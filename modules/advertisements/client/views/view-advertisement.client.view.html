@@ -1,0 +1,15 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.advertisement.title"></h1>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.advertisement.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.advertisement.user" ng-bind="vm.advertisement.user.displayName"></span>
+      <span ng-if="!vm.advertisement.user">Deleted Advertisement</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.advertisement.content"></p>
+</section>

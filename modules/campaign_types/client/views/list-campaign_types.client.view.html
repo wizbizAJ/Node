@@ -1,0 +1,37 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">Character Type</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Management
+                </li>
+                <li>
+                    Character Type
+                </li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+    </div>
+</div>
+
+<section>
+  <div class="list-group">
+    <a ng-repeat="campaign_type in vm.campaign_types" ui-sref="campaign_types.view({ campaign_typeId: campaign_type._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="campaign_type.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="campaign_type.user" ng-bind="campaign_type.user.displayName"></span>
+        <span ng-if="!campaign_type.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="campaign_type.title"></h4>
+      <p class="list-group-item-text" ng-bind="campaign_type.content"></p>
+    </a>
+  </div>
+</section>

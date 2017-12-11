@@ -1,0 +1,15 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.campaign_type.title"></h1>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.campaign_type.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.campaign_type.user" ng-bind="vm.campaign_type.user.displayName"></span>
+      <span ng-if="!vm.campaign_type.user">Deleted Character Type</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.campaign_type.content"></p>
+</section>

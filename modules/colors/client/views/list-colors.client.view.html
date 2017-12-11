@@ -1,0 +1,37 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">Color</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Management
+                </li>
+                <li>
+                    Color
+                </li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+    </div>
+</div>
+
+<section>
+  <div class="list-group">
+    <a ng-repeat="color in vm.colors" ui-sref="colors.view({ colorId: color._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="color.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="color.user" ng-bind="color.user.displayName"></span>
+        <span ng-if="!color.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="color.title"></h4>
+      <p class="list-group-item-text" ng-bind="color.content"></p>
+    </a>
+  </div>
+</section>

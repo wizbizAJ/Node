@@ -1,0 +1,112 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">{{vm.color._id ? 'Edit Color' : 'New Color'}}</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Masters
+                </li>
+                <li>
+                    <a data-ui-sref="admin.colors.list">Color</a>
+                </li>
+                <li>{{vm.color._id ? 'Edit' : 'Add New'}}</li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form name="vm.form.colorForm" ng-submit="vm.save(vm.form.colorForm.$valid)" novalidate>
+                                        <fieldset>
+                                            <legend>
+                                                Color Info
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="name">Name <span class="symbol required"></span></label>
+                                                        <input name="name" type="text" ng-model="vm.color.name" id="name" class="form-control" required autofocus>
+                                                        <div ng-messages="vm.form.colorForm.name.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Color name is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="status">Status <span class="symbol required"></span></label>
+                                                        <select name="status" id="status" ng-model="vm.color.status" class="form-control" required>
+                                                            <option value="Active" >Active</option>
+                                                            <option value="Inactive" >Inactive</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.colorForm.status.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Color status is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="hcode">Hexa Code <span class="symbol required"></span></label>
+                                                        <input name="hcode" type="text" colorpicker="hex" ng-change="vm.hexa(vm.color.hcode)" ng-model="vm.color.hcode" id="hcode" class="form-control" required >
+                                                        <div ng-messages="vm.form.colorForm.hcode.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Color Hexa code is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                   <div class="form-group" show-errors>
+                                                        <label class="control-label" for="rgbcode">Rgb Code <span class="symbol required"></span></label>
+                                                        <input name="rgbcode" type="text"  ng-model="vm.color.rgbcode" id="rgbcode" class="form-control" readonly>
+                                                        <div ng-messages="vm.form.colorForm.rgbcode.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Color Rgb code is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="description">Description</label>
+                                                        <textarea  ui-tinymce="tinymceOptions" name="description" data-ng-model="vm.color.description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                                                        <input name="image" type="file" id="upload" class="hidden" onchange="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-primary pull-right">{{vm.color._id ? 'Update' : 'Add'}} <i class="fa fa-arrow-circle-right"></i></button>
+                                                    
+                                                    <a ng-show="vm.color._id" class="btn btn-primary pull-right margin-right-10" ng-click="vm.remove()" data-ng-if="vm.authentication.user.permissions['canDeleteColor'] || vm.authentication.user.roles[0] === 'admin'">
+                                                        Delete <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

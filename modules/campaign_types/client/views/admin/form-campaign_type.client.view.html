@@ -1,0 +1,183 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">{{vm.campaign_type._id ? 'Edit Campaign CTA' : 'New Campaign CTA'}}</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Masters
+                </li>
+                <li>
+                    <a data-ui-sref="admin.campaign_types.list">Campaign CTA</a>
+                </li>
+                <li>{{vm.campaign_type._id ? 'Edit' : 'Add New'}}</li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form name="vm.form.campaign_typeForm" ng-submit="vm.save(vm.form.campaign_typeForm.$valid)" novalidate>
+                                        <fieldset>
+                                            <legend>
+                                                Campaign CTA Info
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="name">Name <span class="symbol required"></span></label>
+                                                        <input name="name" type="text" ng-model="vm.campaign_type.name" id="name" class="form-control" required autofocus>
+                                                        <div ng-messages="vm.form.campaign_typeForm.name.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Character Type name is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="status">Status <span class="symbol required"></span></label>
+                                                        <select name="status" id="status" ng-model="vm.campaign_type.status" class="form-control" required>
+                                                            <option value="Active" >Active</option>
+                                                            <option value="Inactive" >Inactive</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.campaign_typeForm.status.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Character CTA status is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="productLineOption">Product Line Option<span class="symbol required"></span></label>
+                                                        <ui-select name="productLineOption" multiple ng-model="vm.campaign_type.productLineOption" required>
+                                                            <ui-select-match>
+                                                                <span ng-bind="$item.name"></span>
+                                                            </ui-select-match>
+                                                            <ui-select-choices repeat="item._id as item in (vm.productLineList | filter: $select.search)">
+                                                                <span ng-bind="item.name"></span>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div ng-messages="vm.form.campaignForm.productLineOption.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Product Line Option is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="adminOnly">Admin Only <span class="symbol required"></span></label>
+                                                        <select name="adminOnly" id="adminOnly" ng-model="vm.campaign_type.adminOnly" class="form-control" required>
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.campaign_typeForm.adminOnly.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Admin Only  is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="duringBroadcast">Allow Profile based CTA during Broadcast<span class="symbol required"></span></label>
+                                                        <select name="duringBroadcast" id="duringBroadcast" ng-model="vm.campaign_type.duringBroadcast" class="form-control" required>
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.campaign_typeForm.duringBroadcast.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="duringCta">Allow CTA during Broadcast? <span class="symbol required"></span></label>
+                                                        <select name="duringCta" id="duringCta" ng-model="vm.campaign_type.duringCta" class="form-control" required>
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.campaign_typeForm.duringCta.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="afterCta">Allow CTA after Broadcast? <span class="symbol required"></span></label>
+                                                        <select name="afterCta" id="afterCta" ng-model="vm.campaign_type.afterCta" class="form-control" required>
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.campaign_typeForm.afterCta.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="linkProducts">Option to Link to Products? <span class="symbol required"></span></label>
+                                                        <select name="linkProducts" id="linkProducts" ng-model="vm.campaign_type.linkProducts" class="form-control" required>
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.campaign_typeForm.linkProducts.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>
+                                                Communication channel
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-3" data-ng-repeat="channel in vm.channeProductlList" >
+                                                        <div class="checkbox clip-check check-primary checkbox-inline">
+                                                            <input type="checkbox" id="checkbox{{channel._id}}"  name="channel" ng-model="vm.campaign_type.channel[channel._id]"  >
+                                                            <label for="checkbox{{channel._id}}"> {{channel.name}} </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>                                        
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-primary pull-right">{{vm.campaign_type._id ? 'Update' : 'Add'}} <i class="fa fa-arrow-circle-right"></i></button>
+
+                                                    <a ng-show="vm.campaign_type._id" class="btn btn-primary pull-right margin-right-10" ng-click="vm.remove()" data-ng-if="vm.authentication.user.permissions['canDeleteCharacter Type'] || vm.authentication.user.roles[0] === 'admin'">
+                                                        Delete <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

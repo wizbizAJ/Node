@@ -1,0 +1,81 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">{{vm.character_type._id ? 'Edit Celebrity Type' : 'New Celebrity Type'}}</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Masters
+                </li>
+                <li>
+                    <a data-ui-sref="admin.character_types.list">Celebrity Type</a>
+                </li>
+                <li>{{vm.character_type._id ? 'Edit' : 'Add New'}}</li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form name="vm.form.character_typeForm" ng-submit="vm.save(vm.form.character_typeForm.$valid)" novalidate>
+                                        <fieldset>
+                                            <legend>
+                                                Celebrity Type Info
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="name">Celebrity Type <span class="symbol required"></span></label>
+                                                        <input name="name" type="text" ng-model="vm.character_type.name" id="name" class="form-control" required autofocus>
+                                                        <div ng-messages="vm.form.character_typeForm.name.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Character Type name is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="status">Status <span class="symbol required"></span></label>
+                                                        <select name="status" id="status" ng-model="vm.character_type.status" class="form-control" required>
+                                                            <option value="Active" >Active</option>
+                                                            <option value="Inactive" >Inactive</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.character_typeForm.status.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Celebrity Category status is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-primary pull-right">{{vm.character_type._id ? 'Update' : 'Add'}} <i class="fa fa-arrow-circle-right"></i></button>
+                                                    
+                                                    <a ng-show="vm.character_type._id" class="btn btn-primary pull-right margin-right-10" ng-click="vm.remove()" data-ng-if="vm.authentication.user.permissions['canDeleteCharacter Type'] || vm.authentication.user.roles[0] === 'admin'">
+                                                        Delete <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,330 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">{{vm.advertisement._id ? 'Edit Advertisements' : 'New Advertisements'}}</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Management
+                </li>
+                <li>
+                    <a data-ui-sref="admin.advertisements.list">Advertisements</a>
+                </li>
+                <li>{{vm.advertisement._id ? 'Edit' : 'Add New'}}</li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form name="vm.form.advertisementForm" ng-submit="vm.save(vm.form.advertisementForm.$valid)" novalidate>
+                                        <fieldset>
+                                            <legend>
+                                                Advertisement Info {{vm.data}}
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="name">Name <span class="symbol required"></span></label>
+                                                        <input name="name" type="text" ng-model="vm.advertisement.name" id="name" class="form-control" required autofocus>
+                                                        <div ng-messages="vm.form.advertisementForm.name.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Advertisement name is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="status">Status <span class="symbol required"></span></label>
+                                                        <select name="status" id="status" ng-model="vm.advertisement.status" class="form-control" required>
+                                                            <option value="Active" >Active</option>
+                                                            <option value="Inactive" >Inactive</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.advertisementForm.status.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Product status is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="campaign_company">Campaign Company<span class="symbol required"></span></label>
+                                                        <ui-select name="campaign_company" id="campaign_company" ng-model="vm.advertisement.campaign_company" ng-change="vm.forType(vm.advertisement.campaign_company)" ng-required="true">
+                                                            <ui-select-match allow-clear="true">
+                                                                <span ng-bind="$select.selected.name"></span>
+                                                            </ui-select-match>
+                                                            <ui-select-choices repeat="item._id as item in (vm.campiagnComlanyList | filter: $select.search)">
+                                                                <span ng-bind="item.name"></span>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div ng-messages="vm.form.advertisementForm.campaign_company.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Campaign Company required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="type">Type <span class="symbol required"></span></label>
+                                                        <ui-select name="type" id="type" ng-model="vm.advertisement.type" ng-required="true">
+                                                            <ui-select-match allow-clear="true">
+                                                                <span ng-bind="$select.selected.name"></span>
+                                                            </ui-select-match>
+                                                            <ui-select-choices repeat="item._id as item in (vm.campaign_categoryList | filter: $select.search) track by item._id">
+                                                                <span ng-bind="item.name"></span>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div ng-messages="vm.form.advertisementForm.type.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Type is required.</p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="option">Option <span class="symbol required"></span></label>
+                                                        <select name="option" id="option" ng-model="vm.advertisement.option" class="form-control" required>
+                                                            <option value="Image" >Image</option>
+                                                            <option value="Product" >Product</option>
+                                                            <option value="StyleLook" >StyleLook</option>
+                                                            <option value="AR" >AR</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.advertisementForm.option.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Product Option is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="durationTime">Duration Time<span class="symbol required"></span></label>
+                                                        
+                                                        <div uib-timepicker ng-model="vm.advertisement.durationTime"  hour-step="vm.hstep" minute-step="vm.mstep"  show-seconds="true" show-meridian="false" show-spinners="false" required></div>
+                                                        <div ng-messages="vm.form.advertisementForm.durationTime.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Duration Time is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" data-ng-if="vm.advertisement.option === 'Image'"> 
+                                                <div class="col-md-6">
+                                                    <div  class="form-group" show-errors >
+                                                        <label class="control-label"  ><a ng-click="vm.getAdvertisementImage(vm.advertisement)" data-toggle="modal" data-target=".bs-example-modal-right" class="btn btn-transparent btn-xs" title="Images"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</a></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" data-ng-if="vm.advertisement.option === 'Product'"> 
+                                                <div class="col-md-12">
+                                                    <div class="form-group" show-errors >
+                                                        <label class="control-label" for="productId">Product <span class="symbol required"></span></label>
+                                                        <ui-select name="productId" id="productId" ng-model="vm.advertisement.productId" ng-required="true">
+                                                            <ui-select-match allow-clear="true">
+                                                                <span ng-bind="$select.selected.name"></span>
+                                                            </ui-select-match>
+                                                            <ui-select-choices repeat="item in (vm.productList | filter: $select.search) track by item._id">
+                                                                <span ng-bind="item.name"></span>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div ng-messages="vm.form.advertisementForm.productId.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Product is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="row" data-ng-if="vm.advertisement.option === 'StyleLook'">
+                                                
+                                                 <div class="col-md-12" >
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="styleLookId">StyleLook <span class="symbol required"></span></label>
+                                                        <ui-select name="styleLookId" id="styleLookId" ng-model="vm.advertisement.styleLookId" ng-required="true">
+                                                            <ui-select-match allow-clear="true">
+                                                                <span ng-bind="$select.selected.name"></span>
+                                                            </ui-select-match>
+                                                            <ui-select-choices repeat="item in (vm.styleLookList | filter: $select.search) track by item._id">
+                                                                <span ng-bind="item.name"></span>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div ng-messages="vm.form.advertisementForm.styleLookId.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">StyleLook is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <div class="row" data-ng-if="vm.advertisement.option === 'AR'">
+                                                
+                                                 <div class="col-md-12" >
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="ar">AR <span class="symbol required"></span></label>
+                                                        <input name="ar" type="text" ng-model="vm.advertisement.ar" id="ar" class="form-control" >
+                                                        <div ng-messages="vm.form.advertisementForm.ar.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Area is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="description">Description</label>
+                                                        <textarea ui-tinymce="tinymceOptions" name="description" data-ng-model="vm.advertisement.description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-primary pull-right">{{vm.advertisement._id ? 'Update' : 'Add'}} <i class="fa fa-arrow-circle-right"></i></button>
+                                                    
+                                                    <a ng-show="vm.advertisement._id" class="btn btn-primary pull-right margin-right-10" ng-click="vm.remove()" data-ng-if="vm.authentication.user.permissions['canDeleteAdvertisement'] || vm.authentication.user.roles[0] === 'admin'">
+                                                        Delete <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Right Aside -->
+<div class="imageViewer modal fade modal-aside horizontal right bs-example-modal-right"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Image</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <a class="btn btn-green margin-bottom-10" ng-click="vm.getFiles('/Product')" data-dismiss="modal" data-toggle="modal" data-target=".bs-example-modal-lg">Add Media <i class="ti-plus"></i></a>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning text-center" data-ng-if="!vm.advertisement.mediaSelector.length">
+                    No Media yet.
+                </div>
+
+                <div class="row">                    
+                    <div class="col-md-2 margin-bottom-30 imgDisplay" data-ng-repeat="mymedia in vm.advertisement.mediaSelector track by $index">
+                        <div class="center">
+                            <div class="innerImg">
+                                <img src="{{mymedia}}" class="img-thumbnail img-responsive" />
+                            </div>
+                            <div class="col-md-6 primaryBtnImg">
+                                <input type="radio" name="primaryMedia" ng-model="vm.advertisement.primaryMedia" value="{{mymedia}}" ng-click="vm.updatePrimary(vm.advertisement,mymedia)" />
+                            </div>
+                            <div class="col-md-6 removeBtnImg">
+                                <a ng-click="vm.removeMedia(vm.advertisement,mymedia)"><i class="ti-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Right Aside -->
+
+<!-- Large Modal -->
+<div class="modal fade bs-example-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-lg">
+        <div class="modal-content">
+            <form name="vm.form.advertisementForm" ng-submit="vm.save1(vm.form.advertisementForm.$valid)" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Media </h4>
+                </div>
+                <div class="modal-body mediaImageSelector">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a ng-click="vm.getFiles('')"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                                </li>
+                                <li data-ng-repeat="myPath in vm.getFileLists.path" ng-if="$index > 0">
+                                    <a ng-click="vm.getFiles('/'+myPath)">{{myPath}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-green" ngf-select="vm.uploadProfile($files,vm.getFileLists.pathStr)" multiple="multiple">Add More <i class="ti-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning text-center" data-ng-if="!vm.getFileLists.directory.length && !vm.getFileLists.files.length">
+                        No Media yet.{{vm.getFileLists}}
+                    </div>
+                    <div class="row overflowY-400">
+                        <ul class="mediaImageUl">
+                            <li class="mediaImageDiv" data-ng-repeat="myFile in vm.getFileLists.directory">                           
+                                <a ng-click="vm.getFiles('/'+myFile.name)">
+                                    <div class="center">
+                                        <div class="mediaFolerImg" style="width: 65px;">
+                                            <img src="/assets/images/folder.png"/>
+                                        </div>
+                                        {{myFile.name}}
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mediaImageDiv" data-ng-repeat="myFile in vm.getFileLists.files">                               
+                                <div class="checkbox clip-check check-purple">
+                                    <input type="checkbox" id="mediaFile{{$index}}" ng-model="vm.advertisement.mediaSelector[$index]" data-ng-true-value="'/{{myFile.path}}/{{myFile.name}}'" >
+                                    <label for="mediaFile{{$index}}">
+                                        <div class="center">
+                                            <div class="innerImg">
+                                                <img src="/{{myFile.path}}/{{myFile.name}}" class="img-thumbnail img-responsive" />
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-o" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Large Modal -->

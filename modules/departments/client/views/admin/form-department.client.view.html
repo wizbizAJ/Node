@@ -1,0 +1,161 @@
+<div class="main-content" >
+    <div class="wrap-content container" id="container">
+        <!-- start: BREADCRUMB -->
+        <div class="breadcrumb-wrapper">
+            <h4 class="mainTitle no-margin">{{vm.department._id ? 'Edit Department' : 'New Department'}}</h4>
+            <span class="mainDescription">overview &amp; stats </span>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="/"><i class="fa fa-home margin-right-5 text-large text-dark"></i>Home</a>
+                </li>
+                <li>
+                    Admin
+                </li>
+                <li>
+                    <a data-ui-sref="admin.departments.list">Department</a>
+                </li>
+                <li>{{vm.department._id ? 'Edit' : 'Add New'}}</li>
+            </ul>
+        </div>
+        <!-- end: BREADCRUMB -->
+
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form name="vm.form.departmentForm" ng-submit="vm.save(vm.form.departmentForm.$valid)" novalidate>
+                                        <fieldset>
+                                            <legend>
+                                                Department Info
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="name">Name <span class="symbol required"></span></label>
+                                                        <input name="name" type="text" ng-model="vm.department.name" id="name" class="form-control" required autofocus>
+                                                        <div ng-messages="vm.form.departmentForm.name.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Department name is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="status">Status <span class="symbol required"></span></label>
+                                                        <select name="status" id="status" ng-model="vm.department.status" class="form-control" required>
+                                                            <option value="Active" >Active</option>
+                                                            <option value="Inactive" >Inactive</option>
+                                                        </select>
+                                                        <div ng-messages="vm.form.departmentForm.status.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">Department status is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="contactName">Contact Name</label>
+                                                        <input name="contactName" type="text" ng-model="vm.department.contactName" id="contactName" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="contactNumber">Contact Number</label>
+                                                        <input name="contactNumber" type="text" ng-model="vm.department.contactNumber" id="contactNumber" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group" show-errors>
+                                                        <label class="control-label" for="userId">User <span class="symbol required"></span></label>
+                                                        <ui-select name="userId" id="sectorId" ng-model="vm.department.userId" ng-required="true">
+                                                            <ui-select-match allow-clear="true">
+                                                                <span ng-bind="$select.selected.displayName"></span>
+                                                            </ui-select-match>
+                                                            <ui-select-choices repeat="item in (vm.userList | filter: $select.search)">
+                                                                <span ng-bind="item.displayName"></span>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div ng-messages="vm.form.departmentForm.userId.$error" role="alert">
+                                                            <p class="help-block error-text" ng-message="required">User is required.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-if="vm.department.userId">
+                                                <div class="col-sm-5 col-md-4">
+                                                    <div class="user-left">
+                                                        <div class="center">
+                                                            <h4>{{vm.department.userId.displayName}}</h4>
+                                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                <div class="user-image">
+                                                                    <div class="fileinput-new thumbnail"><img src="/{{vm.department.userId.profileImageURL}}" alt="">
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8 col-md-4">
+                                                    <div class="">
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th colspan="3">Contact Information</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Email:</td>
+                                                                    <td><a href=""> {{vm.department.userId.email}} </a></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Mobile Number:</td>
+                                                                    <td>{{vm.department.userId.mobileNumber}}</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Phone Number:</td>
+                                                                    <td>{{vm.department.userId.phoneNumber}}</td>
+                                                                    <td></td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-primary pull-right">{{vm.department._id ? 'Update' : 'Add'}} <i class="fa fa-arrow-circle-right"></i></button>
+
+                                                    <a ng-show="vm.department._id" class="btn btn-primary pull-right margin-right-10" ng-click="vm.remove()" data-ng-if="vm.authentication.user.permissions['canDeleteDepartment'] || vm.authentication.user.roles[0] === 'admin'">
+                                                        Delete <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
